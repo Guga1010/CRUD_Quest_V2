@@ -4,17 +4,18 @@
 
     <main class="main">
         <section class="update-question">
-            <div class="container">
+            <div class="container" id="section__Alterar">
                 <form class="formUpdate" action="perguntaSelecionada.php" method="GET">
                     <legend>Atualizar Questão/Alternativas</legend>
 
+                    <!--
                     <label class="fa__labels" for="select-theme">Selecione um tema:</label>
                     <select id="select-theme" name="selecionar_tema" class="select-theme" required>
 
                         <option value="" selected disabled>Selecione um tema</option>
 
                         <?php
-
+                            /*
                             include "connection.php";
                             $sqlTema = "SELECT id_tema, desc_tema FROM tema";
                             $resSqlTema = $db->query($sqlTema);
@@ -22,9 +23,11 @@
                                 echo "<option value='$dadosTema[0]'>$dadosTema[1]</option>";
                             }
                             $db->close();
+                            */
                         ?>
 
                     </select>
+                        -->
 
                     <label class="fa__labels" for="select-question">Selecione a Questão para atualizar:</label>
                     <select id="select-question" name="select-question" class="select-question" required>

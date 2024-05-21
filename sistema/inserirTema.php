@@ -22,7 +22,7 @@
                     <legend>Adicionar Tema</legend>
 
                     <label class="fa__labels" for="fa__question">Tema:</label>
-                    <input id="fa__question" name="desc_tema" type="text" data-faQuestion required>
+                    <input id="fa__question" class="input__QuestaoSelecionada" name="desc_tema" type="text" data-faQuestion required>
 
                     <div class="fa__container">
 

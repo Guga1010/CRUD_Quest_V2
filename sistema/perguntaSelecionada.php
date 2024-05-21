@@ -40,13 +40,11 @@
 
         
         if(isset($_GET['select-question'])){
-            echo "if";
             $id_pergunta = $_GET['select-question'];
             $_SESSION['id_pergunta'] = $id_pergunta;
         }
         else
         {   
-            echo "else";
             $id_pergunta = $_SESSION['id_pergunta'];
         }
 
@@ -73,19 +71,19 @@
 
                     <label class="fa__labels" for="question">Questão:</label>
                     
-                    <input id="question" name="question" type="text" value="<?= $dadosPergunta[0] ?>" placeholder="Digite a nova questão:" required>
+                    <input id="question" class="input__QuestaoSelecionada" name="question" type="text" value="<?= $dadosPergunta[0] ?>" placeholder="Digite a nova questão:" required>
 
                     <label class="fa__labels" for="correct-answer">Resposta correta:</label>
-                    <input id="correct-answer" name="correct-answer" type="text" value="<?= $dadosAlternativa[0] ?>" required>
+                    <input id="correct-answer" class="input__QuestaoSelecionada" name="correct-answer" type="text" value="<?= $dadosAlternativa[0] ?>" required>
 
                     <label class="fa__labels" for="alt1">Alternativa 1:</label>
-                    <input id="alt1" name="alt1" type="text" value="<?= $dadosAlternativa[1] ?>" required>
+                    <input id="alt1" class="input__QuestaoSelecionada" name="alt1" type="text" value="<?= $dadosAlternativa[1] ?>" required>
 
                     <label class="fa__labels" for="alt2">Alternativa 2:</label>
-                    <input id="alt2" name="alt2" type="text" value="<?= $dadosAlternativa[2] ?>" required>
+                    <input id="alt2" class="input__QuestaoSelecionada" name="alt2" type="text" value="<?= $dadosAlternativa[2] ?>" required>
 
                     <label class="fa__labels" for="alt3">Alternativa 3:</label>
-                    <input id="alt3" name="alt3" type="text" value="<?= $dadosAlternativa[3] ?>" required>
+                    <input id="alt3" class="input__QuestaoSelecionada" name="alt3" type="text" value="<?= $dadosAlternativa[3] ?>" required>
 
                     <div class="fa__container">
                         <button type="submit" class="fa__button">Atualizar</button>

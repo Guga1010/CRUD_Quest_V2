@@ -57,19 +57,19 @@
                     </select>
 
                     <label class="fa__labels" for="fa__question">Questão:</label>
-                    <input id="fa__question" name="desc_pergunta" type="text" data-faQuestion required>
-
+                    <input id="fa__question" class="input__QuestaoSelecionada" name="desc_pergunta" type="text" data-faQuestion required>
+                    
                     <label class="fa__labels" for="fa__answer">Alternativa Correta:</label>
-                    <input id="fa__answer" name="correta_alternativa" type="text" data-faAnswer required>
+                    <input id="fa__answer" class="input__QuestaoSelecionada" name="correta_alternativa" type="text" data-faAnswer required>
 
                     <label class="fa__labels" for="fa__alt1">Alternativa Incorreta 1:</label>
-                    <input id="fa__alt1" name="errada_alternativa1" type="text" data-faAlt1 required>
+                    <input id="fa__alt1" class="input__QuestaoSelecionada" name="errada_alternativa1" type="text" data-faAlt1 required>
 
                     <label class="fa__labels" for="fa__alt2">Alternativa Incorreta 2:</label>
-                    <input id="fa__alt2" name="errada_alternativa2" type="text" data-faAlt2 required>
+                    <input id="fa__alt2" class="input__QuestaoSelecionada" name="errada_alternativa2" type="text" data-faAlt2 required>
 
                     <label class="fa__labels" for="fa__alt3">Alternativa Incorreta 3:</label>
-                    <input id="fa__alt3" name="errada_alternativa3" type="text" data-faAlt3 required>
+                    <input id="fa__alt3" class="input__QuestaoSelecionada" name="errada_alternativa3" type="text" data-faAlt3 required>
 
                     <div class="fa__container">
                         <input id="fa__button--add" type="submit" class="fa__button" value="Incluir" data-buttonAdd>

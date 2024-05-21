@@ -30,6 +30,8 @@
         <section class="delete-question">
             <div class="container">
                 <form class="formDelete" action="">
+
+                    <!--
                     <legend>Excluir Pergunta</legend>
 
                     <label class="fa__labels" for="select-theme">Selecionar Tema:</label>
@@ -39,7 +41,7 @@
                         <option value="" selected disabled>Selecione um tema</option>
 
                         <?php
-
+                            /*
                             include "connection.php";
                             $sqlTema = "SELECT id_tema, desc_tema FROM tema";
                             $resSqlTema = $db->query($sqlTema);
@@ -47,12 +49,13 @@
                                 echo "<option value='$dadosTema[0]'>$dadosTema[1]</option>";
                             }
                             $db->close();
+                            */
                         ?>
 
 
                     </select>
-
-                    <label class="fa__labels" for="select-question">Selecione uma Questão para excluir:</label>
+                        -->
+                    <label class="fa__labels" id="h1__exclusao" for="select-question">Selecione uma Questão para excluir:</label>
                     <select id="select-question" name="select_questao" class="select-question" required>
 
 

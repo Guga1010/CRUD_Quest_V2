@@ -11,7 +11,7 @@
             </div>
 
             <div class="options__container">
-                <button class="option-btn" onclick="window.location.href='alterarExcluirTema.php'">Alterar/Excluir Tema</button>
+                <button class="option-btn" onclick="window.location.href='excluirTema.php'">Excluir Tema</button>
             </div>
 
             <div class="options__container">

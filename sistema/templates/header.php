@@ -9,7 +9,7 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title></title>
+        <title>CRUD - Quest</title>
 
         <link rel="stylesheet" href="<?= $BASE_URL ?>/css/style.css">
 
@@ -20,7 +20,8 @@
     <header class="header">
         <nav class="nav">
             <ul class="list">
-                <li class="li__items"><h1 class="title">Quest</h1></li>
+                <li class="li__items"><h1 class="title">Quest?</h1></li>
+                <li class="li__items"><h1 class="title"><a href="../index.php" id="link__Sair">Sair</a></h1></li>
             </ul>
         </nav>
     </header>
