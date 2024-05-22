@@ -5,46 +5,76 @@
     <main class="main">
         <section class="update-question">
             <div class="container" id="section__Alterar">
-                <form class="formUpdate" action="perguntaSelecionada.php" method="GET">
+                <form class="formUpdate" action="perguntaSelecionada.php?teste=1" method="GET">
                     <legend>Atualizar Questão/Alternativas</legend>
 
-                    <label class="fa__labels" for="select-theme">Selecione um tema:</label>
-                    <select id="select-theme" name="selecionar_tema" class="select-theme" required>
+                    <label class="fa__labels" for="select-theme">Tema:</label>
+                    <?php
+                        $tema = 0;
+                        $pergunta = 0;
+                        if(isset($_GET['tema']) and $_GET['tema'] != 0){
+                            $tema = $_GET['tema'];
+                        }
+                        if(isset($_GET['pergunta']) and $_GET['pergunta'] != 0){
+                            $pergunta = $_GET['pergunta'];  
+                        }
+            
+                        echo '<select name="tema"
+                            onchange="this.options[this.selectedIndex].value &&
+                                (window.location = this.options[this.selectedIndex].value);"
+                        >';
 
-                        <option value="" selected disabled>Selecione um tema</option>
+                        include "connection.php";
 
-                        <?php
-                            
-                            include "connection.php";
-                            $sqlTema = "SELECT id_tema, desc_tema FROM tema";
+                        if($tema != 0){
+                            $sqlTemaEscolhido = "SELECT id_tema, desc_tema FROM tema WHERE id_tema = $tema ;";
+                            $resSqlTemaEscolhido = $db->query($sqlTemaEscolhido);
+                            $dadosTemaEscolhido = $resSqlTemaEscolhido->fetchArray();
+                            echo "<option value=''>$dadosTemaEscolhido[1]</option>";
+                        }
+
+                        echo "<option value='alterarPergunta.php'>Selecione um tema...</option>";
+
+                            $sqlTema = "SELECT id_tema, desc_tema FROM tema WHERE id_tema != $tema";
                             $resSqlTema = $db->query($sqlTema);
                             while($dadosTema = $resSqlTema->fetchArray()){
-                                echo "<option value='$dadosTema[0]'>$dadosTema[1]</option>";
+                                $link = "alterarPergunta.php?tema=$dadosTema[0]";
+                                echo "<option value='$link'>$dadosTema[1]</option>";
                             }
                             $db->close();
                             
-                        ?>
-
-                    </select>
+                        echo "</select>";
+                    ?>
                     
 
-                    <label class="fa__labels" for="select-question">Selecione a Questão para atualizar:</label>
-                    <select id="select-question" name="select-question" class="select-question" required>
-                        <option value="" selected disabled>Selecione a Questão</option>
-
-                        <?php
-
+                    <label class="fa__labels" for="select-question">Questão:</label>
+                    <?php
+                        if(isset($_GET['tema']) and $_GET['tema'] != 0)
+                        {
+                            echo ' <select name="pergunta">';
+                            
                             include "connection.php";
-                            $sqlPergunta = "SELECT id_pergunta, desc_pergunta FROM pergunta";
+
+                            $id_tema = $_GET['tema'];
+
+                            echo "<option value=''>Selecione uma pergunta...</option>";
+
+                            $sqlPergunta = "SELECT id_pergunta, desc_pergunta FROM pergunta WHERE id_tema_pergunta = $id_tema";
                             $resSqlPergunta= $db->query($sqlPergunta);
+
                             while($dadosPergunta = $resSqlPergunta->fetchArray()){
                                 echo "<option value='$dadosPergunta[0]'>$dadosPergunta[1]</option>";
                             }
                             $db->close();
+                        }   
+                        else
+                        {
+                            echo '<select name="pergunta" disabled>';
+                            echo "<option value=''>Selecione um tema...</option>";
+                        } 
 
-                        ?>
-
-                    </select>
+                        echo "</select>";
+                    ?>
 
                     <div class="fa__container">
                         <button type="submit" class="fa__button">Atualizar</button>

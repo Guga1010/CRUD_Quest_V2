@@ -15,15 +15,19 @@
             </div>
 
             <div class="options__container">
+                <button class="option-btn" onclick="window.location.href='mostrarPergunta.php'">Listar perguntas</button>
+            </div>
+
+            <div class="options__container">
                 <button class="option-btn" onclick="window.location.href='inserirPergunta.php'">Adicionar Pergunta</button>
             </div>
 
             <div class="options__container">
-                <button class="option-btn" onclick="window.location.href='excluirPergunta.php'">Remover Pergunta</button>
+                <button class="option-btn" onclick="window.location.href='alterarPergunta.php'">Atualizar Pergunta/Alternativa</button>
             </div>
 
             <div class="options__container">
-                <button class="option-btn" onclick="window.location.href='alterarPergunta.php'">Atualizar Pergunta/Alternativa</button>
+                <button class="option-btn" onclick="window.location.href='excluirPergunta.php'">Remover Pergunta</button>
             </div>
 
         </section>

@@ -4,12 +4,11 @@
 
 <?php
 
-    if(isset($_GET['select_questao'])){
+    if(isset($_GET['submit_excluir'])){
 
         include "connection.php";
 
-
-        $id_pergunta = $_GET['select_questao'];
+        $id_pergunta = $_GET['pergunta'];
 
         $sqlIdAlternativa = "SELECT id_alternativa_pergunta FROM pergunta WHERE id_pergunta = $id_pergunta";
         $resSqlIdAlternativa = $db->query($sqlIdAlternativa);
@@ -31,7 +30,7 @@
     <main class="main">
         <section class="delete-question">
             <div class="container">
-                <form class="formDelete" action="">
+                <form class="formDelete" method="GET">
 
                     <legend>Excluir Pergunta</legend>
 
@@ -39,8 +38,12 @@
                     <?php
 
                         $tema = 0;
+                        $pergunta = 0;
                         if(isset($_GET['tema']) and $_GET['tema'] != 0){
                             $tema = $_GET['tema'];
+                        }
+                        if(isset($_GET['pergunta']) and $_GET['pergunta'] != 0){
+                            $pergunta = $_GET['pergunta'];  
                         }
             
                         echo '<select name="tema"
@@ -76,35 +79,37 @@
                     
 
                         <?php
-                        /* Continuar as alterações nas perguntas */
-                            echo ' <select name="pergunta"
-                                onchange="this.options[this.selectedIndex].value &&
-                                (window.location = this.options[this.selectedIndex].value);"
-                            >';
-                            
-                            include "connection.php";
 
-                            echo '<option value="">Selecione uma pergunta...</option>';
+                            if(isset($_GET['tema']) and $_GET['tema'] != 0)
+                            {
+                                echo ' <select name="pergunta">';
+                                
+                                include "connection.php";
 
-                            $sqlPergunta = "SELECT id_pergunta, desc_pergunta FROM pergunta";
-                            $resSqlPergunta= $db->query($sqlPergunta);
-                            while($dadosPergunta = $resSqlPergunta->fetchArray()){
-                                $link = "excluirPergunta.php?tema=&pergunta=$dadosPergunta[0]";
-                                echo "<option value='$link'>$dadosPergunta[1]</option>";
-                            }
-                            $db->close();
+                                $id_tema = $_GET['tema'];
 
-                            
+                                echo "<option value=''>Selecione uma pergunta...</option>";
+
+                                $sqlPergunta = "SELECT id_pergunta, desc_pergunta FROM pergunta WHERE id_tema_pergunta = $id_tema";
+                                $resSqlPergunta= $db->query($sqlPergunta);
+
+                                while($dadosPergunta = $resSqlPergunta->fetchArray()){
+                                    echo "<option value='$dadosPergunta[0]'>$dadosPergunta[1]</option>";
+                                }
+                                $db->close();
+                            }   
+                            else
+                            {
+                                echo '<select name="pergunta" disabled>';
+                                echo "<option value=''>Selecione um tema...</option>";
+                            } 
+
                             echo "</select>";
                         ?>
                         
-                       
-    
-
-
-
+                    
                     <div class="fa__container">
-                        <input id="fa__button--delete" type="submit" class="fa__button" value="Deletar" data-buttonDelete>
+                        <input id="fa__button--delete" type="submit" name="submit_excluir" class="fa__button" value="Deletar" data-buttonDelete>
                         <a href="index.php" class="back-button">Voltar</a>
                     </div>
                 </form>
