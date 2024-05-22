@@ -20,6 +20,8 @@
 
         $sqlExcluiPergunta = "DELETE FROM pergunta WHERE id_pergunta = $id_pergunta";
         $db->query($sqlExcluiPergunta);
+
+        $db->close();
     
     }
 ?>
@@ -31,49 +33,75 @@
             <div class="container">
                 <form class="formDelete" action="">
 
-                    <!--
                     <legend>Excluir Pergunta</legend>
 
-                    <label class="fa__labels" for="select-theme">Selecionar Tema:</label>
+                    <label class="fa__labels" for="select-theme">Tema:</label>
+                    <?php
 
-                    <select id="select-theme" name="select-theme" class="select-theme" required>
+                        $tema = 0;
+                        if(isset($_GET['tema']) and $_GET['tema'] != 0){
+                            $tema = $_GET['tema'];
+                        }
+            
+                        echo '<select name="tema"
+                            onchange="this.options[this.selectedIndex].value &&
+                                (window.location = this.options[this.selectedIndex].value);"
+                        >';
 
-                        <option value="" selected disabled>Selecione um tema</option>
+                        include "connection.php";
 
-                        <?php
-                            /*
-                            include "connection.php";
-                            $sqlTema = "SELECT id_tema, desc_tema FROM tema";
+                        if($tema != 0){
+                            $sqlTemaEscolhido = "SELECT id_tema, desc_tema FROM tema WHERE id_tema = $tema ;";
+                            $resSqlTemaEscolhido = $db->query($sqlTemaEscolhido);
+                            $dadosTemaEscolhido = $resSqlTemaEscolhido->fetchArray();
+                            echo "<option value=''>$dadosTemaEscolhido[1]</option>";
+                        }
+
+                        echo "<option value='excluirPergunta.php'>Selecione um tema...</option>";
+
+                            $sqlTema = "SELECT id_tema, desc_tema FROM tema WHERE id_tema != $tema";
                             $resSqlTema = $db->query($sqlTema);
                             while($dadosTema = $resSqlTema->fetchArray()){
-                                echo "<option value='$dadosTema[0]'>$dadosTema[1]</option>";
+                                $link = "excluirPergunta.php?tema=$dadosTema[0]";
+                                echo "<option value='$link'>$dadosTema[1]</option>";
                             }
                             $db->close();
-                            */
-                        ?>
+                            
+                        echo "</select>";
+                        
+                    ?>
+                    
 
+                    <label class="fa__labels" id="h1__exclusao" for="select-question">Questão:</label>
+                    
 
-                    </select>
-                        -->
-                    <label class="fa__labels" id="h1__exclusao" for="select-question">Selecione uma Questão para excluir:</label>
-                    <select id="select-question" name="select_questao" class="select-question" required>
-
-
-                        <option value="" selected disabled>Selecione uma questão</option>
-                       
                         <?php
-
+                        /* Continuar as alterações nas perguntas */
+                            echo ' <select name="pergunta"
+                                onchange="this.options[this.selectedIndex].value &&
+                                (window.location = this.options[this.selectedIndex].value);"
+                            >';
+                            
                             include "connection.php";
+
+                            echo '<option value="">Selecione uma pergunta...</option>';
+
                             $sqlPergunta = "SELECT id_pergunta, desc_pergunta FROM pergunta";
                             $resSqlPergunta= $db->query($sqlPergunta);
                             while($dadosPergunta = $resSqlPergunta->fetchArray()){
-                                echo "<option value='$dadosPergunta[0]'>$dadosPergunta[1]</option>";
+                                $link = "excluirPergunta.php?tema=&pergunta=$dadosPergunta[0]";
+                                echo "<option value='$link'>$dadosPergunta[1]</option>";
                             }
                             $db->close();
+
+                            
+                            echo "</select>";
                         ?>
+                        
+                       
+    
 
 
-                    </select>
 
                     <div class="fa__container">
                         <input id="fa__button--delete" type="submit" class="fa__button" value="Deletar" data-buttonDelete>
