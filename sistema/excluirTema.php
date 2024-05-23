@@ -3,12 +3,14 @@
 ?>
 
 <?php
-    if(isset($_GET['selecionar_tema'])){
+    if(isset($_GET['tema'])){
+
+        $msg = "";
 
         include "connection.php";
-
-        $id_tema = $_GET['selecionar_tema'];
-
+        
+        $id_tema = $_GET['tema'];
+    
         $sqlTema = "DELETE FROM tema WHERE id_tema = $id_tema";
         $db->query($sqlTema);
 
@@ -20,11 +22,30 @@
             $sqlExcluiPergunta = "DELETE FROM pergunta WHERE id_alternativa_pergunta = $dadosPergunta[0]";
             $db->query($sqlExcluiPergunta);
         }
+        
+        $res = "Tema excluido!";
 
+        $db->close();
+
+    }
+
+    if(isset($res)){
+        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'>
+            $res
+        </p>";
     }
 ?>
 
     <main class="main">
+
+        <?php
+            if(isset($msg) and $msg != ""){
+                echo '<div class="msg">';
+                    echo $msg;
+                echo '</div>';
+            } 
+        ?>
+
         <section class="add-question">
             <div class="container">
                 <form class="formAdd" action="">
@@ -32,7 +53,7 @@
 
                     <label class="fa__labels" for="select-theme">Selecionar Tema:</label>
 
-                    <select id="select-theme" name="selecionar_tema" class="select-theme" required>
+                    <select id="select-theme" name="tema" class="select-theme" required>
 
                         <option value="" selected disabled>Selecione um tema</option>
 

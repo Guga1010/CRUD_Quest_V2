@@ -6,6 +6,8 @@
 
     if(isset($_GET['submit_excluir'])){
 
+        $msg = "";
+
         include "connection.php";
 
         $id_pergunta = $_GET['pergunta'];
@@ -20,14 +22,31 @@
         $sqlExcluiPergunta = "DELETE FROM pergunta WHERE id_pergunta = $id_pergunta";
         $db->query($sqlExcluiPergunta);
 
+        $res = "Pergunta excluida!";
+
         $db->close();
     
+    }
+
+    if(isset($res)){
+        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'>
+            $res
+        </p>";
     }
 ?>
 
 
 
     <main class="main">
+
+        <?php
+            if(isset($msg) and $msg != ""){
+                echo '<div class="msg">';
+                    echo $msg;
+                echo '</div>';
+            } 
+        ?>
+
         <section class="delete-question">
             <div class="container">
                 <form class="formDelete" method="GET">

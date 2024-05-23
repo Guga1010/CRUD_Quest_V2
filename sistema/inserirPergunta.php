@@ -4,6 +4,9 @@
 
 <?php
     if(isset($_GET['desc_pergunta'])){
+
+        $msg = "";
+
         include "connection.php";
 
         $id_tema = $_GET['selecionar_tema'];
@@ -29,10 +32,29 @@
                ") VALUES ('$desc_pergunta', $id_tema, $dadosIdMaxAlter[0])";
         $resSqlPergunta = $db->query($sqlPergunta);
 
+        $res = "Pergunta incluida!";
+
+        $db->close();
+
+    }
+
+    if(isset($res)){
+        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'>
+            $res
+        </p>";
     }
 ?>
 
     <main class="main">
+
+        <?php
+            if(isset($msg) and $msg != ""){
+                echo '<div class="msg">';
+                    echo $msg;
+                echo '</div>';
+            } 
+        ?>
+
         <section class="add-question">
             <div class="container">
                 <form class="formAdd" action="">
