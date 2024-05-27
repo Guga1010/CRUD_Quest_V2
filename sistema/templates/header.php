@@ -11,7 +11,8 @@
 
         <title>CRUD - Quest</title>
 
-        <link rel="stylesheet" href="<?= $BASE_URL ?>/css/style.css">
+        <link rel="stylesheet" href="<?= $BASE_URL ?>/css/default.css">
+        <link rel="stylesheet" href="<?= $BASE_URL ?>/css/content.css">
 
     </head>
 

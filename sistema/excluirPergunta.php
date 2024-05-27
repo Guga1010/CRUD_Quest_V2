@@ -2,40 +2,19 @@
     include_once("templates/header.php");
 ?>
 
+<script type="text/javascript">
+        function confirmDelete() {
+            return confirm("Tem certeza de que deseja excluir essa pergunta?");
+        }
+</script>
+
 <?php
-
-    if(isset($_GET['submit_excluir'])){
-
-        $msg = "";
-
-        include "connection.php";
-
-        $id_pergunta = $_GET['pergunta'];
-
-        $sqlIdAlternativa = "SELECT id_alternativa_pergunta FROM pergunta WHERE id_pergunta = $id_pergunta";
-        $resSqlIdAlternativa = $db->query($sqlIdAlternativa);
-        $dadosAlternativa = $resSqlIdAlternativa->fetchArray();
-
-        $sqlExcluiAlternativa = "DELETE FROM alternativa WHERE id_alternativa = $dadosAlternativa[0]";
-        $db->query($sqlExcluiAlternativa);
-
-        $sqlExcluiPergunta = "DELETE FROM pergunta WHERE id_pergunta = $id_pergunta";
-        $db->query($sqlExcluiPergunta);
-
-        $res = "Pergunta excluida!";
-
-        $db->close();
-    
-    }
-
-    if(isset($res)){
-        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'>
-            $res
-        </p>";
+    if(isset($_GET['msg'])){
+        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'>" .
+         $_GET['msg'] .
+        "</p>";
     }
 ?>
-
-
 
     <main class="main">
 
@@ -48,12 +27,15 @@
         ?>
 
         <section class="delete-question">
+
             <div class="container">
-                <form class="formDelete" method="GET">
+
+                <form class="formDelete" action="operacoesBD.php" method="GET" onsubmit="return confirmDelete();">
 
                     <legend>Excluir Pergunta</legend>
 
-                    <label class="fa__labels" for="select-theme">Tema:</label>
+                    <label class="fa__labels" for="tema">Tema:</label>
+                    
                     <?php
 
                         $tema = 0;
@@ -68,7 +50,7 @@
                         echo '<select name="tema"
                             onchange="this.options[this.selectedIndex].value &&
                                 (window.location = this.options[this.selectedIndex].value);"
-                        >';
+                        required>';
 
                         include "connection.php";
 
@@ -94,7 +76,7 @@
                     ?>
                     
 
-                    <label class="fa__labels" id="h1__exclusao" for="select-question">Questão:</label>
+                    <label class="fa__labels" id="h1__exclusao" for="pergunta">Questão:</label>
                     
 
                         <?php
@@ -128,8 +110,13 @@
                         
                     
                     <div class="fa__container">
-                        <input id="fa__button--delete" type="submit" name="submit_excluir" class="fa__button" value="Deletar" data-buttonDelete>
+
+                        <button type="submit" name="excluir_pergunta">Excluir</button>
+                        
+                        <!-- <input id="fa__button--delete" type="submit" name="submit_excluir" class="fa__button" value="Deletar" data-buttonDelete> -->
+
                         <a href="index.php" class="back-button">Voltar</a>
+
                     </div>
                 </form>
             </div>

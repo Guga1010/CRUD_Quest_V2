@@ -2,13 +2,35 @@
     include_once("templates/header.php");
 ?>
 
+<?php
+    
+    if(isset($_GET['msg'])){
+        $msg = "<p style='background: rgb(152,251,152); color: rgb(0,100,0);'> " .
+            $_GET['msg'] .
+        "</p>";
+    }
+?>
+
     <main class="main">
+        
+        <?php
+            if(isset($msg) and $msg != ""){
+                echo '<div class="msg">';
+                    echo $msg;
+                echo '</div>';
+            } 
+        ?>
+
         <section class="update-question">
+
             <div class="container" id="section__Alterar">
-                <form class="formUpdate" action="perguntaSelecionada.php?teste=1" method="GET">
+
+                <form class="formUpdate" action="perguntaSelecionada.php" method="GET">
+
                     <legend>Atualizar Questão/Alternativas</legend>
 
-                    <label class="fa__labels" for="select-theme">Tema:</label>
+                    <label class="fa__labels" for="tema">Tema:</label>
+
                     <?php
                         $tema = 0;
                         $pergunta = 0;
@@ -35,19 +57,20 @@
 
                         echo "<option value='alterarPergunta.php'>Selecione um tema...</option>";
 
-                            $sqlTema = "SELECT id_tema, desc_tema FROM tema WHERE id_tema != $tema";
-                            $resSqlTema = $db->query($sqlTema);
-                            while($dadosTema = $resSqlTema->fetchArray()){
-                                $link = "alterarPergunta.php?tema=$dadosTema[0]";
-                                echo "<option value='$link'>$dadosTema[1]</option>";
-                            }
-                            $db->close();
+                        $sqlTema = "SELECT id_tema, desc_tema FROM tema WHERE id_tema != $tema";
+                        $resSqlTema = $db->query($sqlTema);
+                        while($dadosTema = $resSqlTema->fetchArray()){
+                            $link = "alterarPergunta.php?tema=$dadosTema[0]";
+                            echo "<option value='$link'>$dadosTema[1]</option>";
+                        }
+                        $db->close();
                             
                         echo "</select>";
                     ?>
                     
 
-                    <label class="fa__labels" for="select-question">Questão:</label>
+                    <label class="fa__labels" for="pergunta">Questão:</label>
+
                     <?php
                         if(isset($_GET['tema']) and $_GET['tema'] != 0)
                         {
@@ -80,9 +103,13 @@
                         <button type="submit" class="fa__button">Atualizar</button>
                         <a href="index.php" class="back-button">Voltar</a>
                     </div>
+
                 </form>
+
             </div>
+
         </section>
+
     </main>
         
 <?php

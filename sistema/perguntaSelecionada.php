@@ -2,51 +2,15 @@
     include_once("templates/header.php");
 ?>
 
-
-<?php
-    session_start();
-
-    if(isset($_GET['question'])){
-
-        include "connection.php";
-
-        $formQuestion = $_GET['question'];
-
-        $form_correctAnswer = $_GET['correct-answer'];
-        $form_wrongAnswer1 = $_GET['alt1'];
-        $form_wrongAnswer2 = $_GET['alt2'];
-        $form_wrongAnswer3 = $_GET['alt3'];
-
-        $id_pergunta = $_SESSION['id_pergunta'];
-
-        $sqlPergunta = "SELECT id_alternativa_pergunta FROM pergunta WHERE id_pergunta = $id_pergunta";
-        $resSqlPergunta= $db->query($sqlPergunta);
-        $dadosPergunta = $resSqlPergunta->fetchArray();
-        
-        $sqlUpdateAlternativas = "UPDATE alternativa SET correta_alternativa = '$form_correctAnswer', errada_alternativa1 = '$form_wrongAnswer1'," . 
-        "errada_alternativa2 = '$form_wrongAnswer2',errada_alternativa3 = '$form_wrongAnswer3' WHERE id_alternativa = $dadosPergunta[0]";
-        $db->query($sqlUpdateAlternativas);
-
-        $sqlUpdatePerguntas = "UPDATE pergunta SET desc_pergunta = '$formQuestion' WHERE id_pergunta = $id_pergunta";
-        $db->query($sqlUpdatePerguntas);
-    
-
-    }
-?>
-
     <?php
 
         include "connection.php";
 
+        $id_pergunta = 0;
+        if(isset($_GET['pergunta'])){
+            $id_pergunta = $_GET['pergunta'];
+        }
         
-        if(isset($_GET['select-question'])){
-            $id_pergunta = $_GET['select-question'];
-            $_SESSION['id_pergunta'] = $id_pergunta;
-        }
-        else
-        {   
-            $id_pergunta = $_SESSION['id_pergunta'];
-        }
 
         $sqlPergunta = "SELECT desc_pergunta, id_alternativa_pergunta FROM pergunta WHERE id_pergunta = $id_pergunta";
         $resSqlPergunta= $db->query($sqlPergunta);
@@ -55,19 +19,22 @@
         $sqlAlternativa = "SELECT correta_alternativa, errada_alternativa1,errada_alternativa2,errada_alternativa3 FROM alternativa WHERE id_alternativa = $dadosPergunta[1]";
         $resSqlAlternativa= $db->query($sqlAlternativa);
         $dadosAlternativa = $resSqlAlternativa->fetchArray();
-    
-        
-    
-        
-        
 
     ?>
 
     <main class="main">
+
+        
+
         <section class="selected-question">
+
             <div class="container">
-                <form class="formSelected" action="" method="GET">
+
+                <form class="formSelected" action="operacoesBD.php" method="GET">
+
                     <legend>Questão selecionada</legend>
+
+                    <input type="hidden" name="pergunta" value="<?= $id_pergunta ?>">
 
                     <label class="fa__labels" for="question">Questão:</label>
                     
@@ -86,13 +53,19 @@
                     <input id="alt3" class="input__QuestaoSelecionada" name="alt3" type="text" value="<?= $dadosAlternativa[3] ?>" required>
 
                     <div class="fa__container">
-                        <button type="submit" class="fa__button">Atualizar</button>
+
+                        <button type="submit" name="atualizar_pergunta">Atualizar</button>
+
                         <a href="index.php" class="back-button">Voltar</a>
+
                     </div>
 
                 </form>
+
             </div>
+
         </section>
+
     </main>
 
 

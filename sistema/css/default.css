@@ -1,0 +1,37 @@
+/* Página inteira */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    outline: 0px;
+    font-size: 16px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Cabeçalho */
+
+header {
+    height: 60px;
+    margin-bottom: 40px;
+    box-shadow: 2px 2px 15px;
+}
+
+.list {
+    align-items: center;
+    background-color: #111;
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0 20px;
+}
+
+.title {
+    color: #dedede;
+    font-size: 1.5rem;
+}

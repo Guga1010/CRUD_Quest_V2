@@ -2,6 +2,25 @@
     include_once("templates/header.php");
 ?>
 
+<script>
+    function mostrarPopUpAlternativas(code){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) 
+            {
+                document.getElementById("popUp-alternativas").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","popUpAlternativas.php?codigo="+code,true);
+        xmlhttp.send();
+
+        const popUp = document.getElementById("popUp-alternativas");
+
+        popUp.style.display = "block";
+        popUp.style.opacity = "1";
+    }
+</script>
+
     <legend>Listar Pergunta(s)</legend>
 
                     <label class="fa__labels" for="select-theme">Tema:</label>
@@ -75,13 +94,15 @@
             echo "<td>$dadosPergunta[0]</td>";
             echo "<td>$dadosPergunta[1]</td>";
             echo "<td>$dadosPergunta[2]</td>";
-            echo "<td><input type='button' value='Abrir'></td>";
+            echo "<td><input type='button' id='$dadosPergunta[0]' onclick=mostrarPopUpAlternativas(this.id) value='Abrir'></td>";
             echo "</tr>";
         }
         $db->close();
     ?>
     </tbody>
 </table>
+
+<div id="popUp-alternativas"></div>
 
 <main>
     
