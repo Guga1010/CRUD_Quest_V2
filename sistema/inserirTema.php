@@ -3,6 +3,7 @@
 ?>
 
 <?php
+    /*
     if(isset($_GET['desc_tema'])){
 
         $msg = "";
@@ -25,36 +26,46 @@
             $res
         </p>";
     }
+    */
 ?>
 
     <main class="main">
 
         <?php
+            /*
             if(isset($msg) and $msg != ""){
                 echo '<div class="msg">';
                     echo $msg;
                 echo '</div>';
-            } 
+            }
+            */
         ?>
 
         <section class="add-question">
+
             <div class="container">
-                <form class="formAdd" action="">
+
+                <form class="formAdd" action="inserirPergunta.php">
+                    
                     <legend>Adicionar Tema</legend>
 
                     <label class="fa__labels" for="fa__question">Tema:</label>
-                    <input id="fa__question" class="input__QuestaoSelecionada" name="desc_tema" type="text" data-faQuestion required>
+                    <input id="fa__question" class="input__QuestaoSelecionada" name="tema_add" type="text" data-faQuestion required>
 
                     <div class="fa__container">
 
                         <input id="fa__button--add" type="submit" class="fa__button" value="Incluir" data-buttonAdd>
 
                         <input id="fa__button--close" type="button" class="fa__button back-button" value="Voltar" onclick="window.location.href='index.php'">
+
                     </div>
 
                 </form>
+
             </div>
+
         </section>
+
     </main>
         
 <?php
